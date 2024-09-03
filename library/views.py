@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .models import Author, Book
 from .forms import AuthorForm, BookForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView
@@ -26,6 +27,7 @@ class AuthorUpdateView(UpdateView):
     template_name = 'library/author_form.html'
     success_url = reverse_lazy('library:authors_list')
 
+
 class BooksListView(ListView):
     model = Book
     template_name = 'library/books_list.html'
@@ -36,7 +38,7 @@ class BooksListView(ListView):
         return queryset.filter(publication_date__year__gt=2000)
 
 
-class BookCreateView(CreateView):
+class BookCreateView(LoginRequiredMixin, CreateView):
     model = Book
     form_class = BookForm
     template_name = 'library/book_form.html'
@@ -54,7 +56,7 @@ class BookDetailView(DetailView):
         return context
 
 
-class BookUpdateView(UpdateView):
+class BookUpdateView(LoginRequiredMixin, UpdateView):
     model = Book
     form_class = BookForm
     template_name = 'library/book_form.html'
