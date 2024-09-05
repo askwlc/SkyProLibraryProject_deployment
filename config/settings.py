@@ -146,3 +146,5 @@ EMAIL_HOST_PASSWORD = 'wepfpjtwafligyxc'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 LOGIN_REDIRECT_URL = 'library:books_list'
+
+LOGIN_URL = 'users:login'
